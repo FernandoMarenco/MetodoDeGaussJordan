@@ -23,14 +23,15 @@ public class InterfazGaussJordan extends javax.swing.JFrame {
     public InterfazGaussJordan() {
         initComponents();
         this.setLocationRelativeTo(null);
+        this.setResizable(false);
     }
 
     /**
      * Atributos utilizados en la interfaz
      */
     int p = 0, n; // pivote y tamaño de la matriz
-    double a[][] = null; // arreglo que almacena los datos
-    char[] letras = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'};
+    double a[][] = null; // arreglo que almacena la matriz
+    char[] letras = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'}; //variables
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -50,6 +51,9 @@ public class InterfazGaussJordan extends javax.swing.JFrame {
         btBorrarMatriz = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtPasos = new javax.swing.JTextArea();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Método de Gauss-Jordan");
@@ -67,7 +71,7 @@ public class InterfazGaussJordan extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tbGauss);
 
         jPanel1.add(jScrollPane1);
-        jScrollPane1.setBounds(10, 69, 370, 176);
+        jScrollPane1.setBounds(20, 90, 380, 200);
 
         txtTamanioMatriz.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -75,7 +79,7 @@ public class InterfazGaussJordan extends javax.swing.JFrame {
             }
         });
         jPanel1.add(txtTamanioMatriz);
-        txtTamanioMatriz.setBounds(100, 20, 146, 20);
+        txtTamanioMatriz.setBounds(170, 60, 100, 20);
 
         okButton.setText("OK");
         okButton.addActionListener(new java.awt.event.ActionListener() {
@@ -84,7 +88,7 @@ public class InterfazGaussJordan extends javax.swing.JFrame {
             }
         });
         jPanel1.add(okButton);
-        okButton.setBounds(354, 40, 47, 23);
+        okButton.setBounds(290, 60, 47, 20);
 
         btAplicarMetodo.setText("Aplicar");
         btAplicarMetodo.addActionListener(new java.awt.event.ActionListener() {
@@ -93,7 +97,7 @@ public class InterfazGaussJordan extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btAplicarMetodo);
-        btAplicarMetodo.setBounds(196, 256, 65, 23);
+        btAplicarMetodo.setBounds(120, 300, 80, 30);
 
         btBorrarMatriz.setText("Borrar");
         btBorrarMatriz.addActionListener(new java.awt.event.ActionListener() {
@@ -102,7 +106,7 @@ public class InterfazGaussJordan extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btBorrarMatriz);
-        btBorrarMatriz.setBounds(287, 256, 63, 23);
+        btBorrarMatriz.setBounds(220, 300, 80, 30);
 
         txtPasos.setEditable(false);
         txtPasos.setColumns(20);
@@ -111,65 +115,44 @@ public class InterfazGaussJordan extends javax.swing.JFrame {
         jScrollPane2.setViewportView(txtPasos);
 
         jPanel1.add(jScrollPane2);
-        jScrollPane2.setBounds(420, 10, 360, 263);
+        jScrollPane2.setBounds(420, 90, 360, 230);
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Matrices con Gauss-Jordan");
+        jPanel1.add(jLabel1);
+        jLabel1.setBounds(0, 10, 800, 29);
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel2.setText("Tamaño de la matriz:");
+        jPanel1.add(jLabel2);
+        jLabel2.setBounds(50, 60, 120, 20);
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel3.setText("Procedimiento:");
+        jPanel1.add(jLabel3);
+        jLabel3.setBounds(420, 60, 90, 20);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 824, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 800, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
-        if (Integer.parseInt(txtTamanioMatriz.getText()) > 10 || Integer.parseInt(txtTamanioMatriz.getText()) < 2) {
-            JOptionPane.showMessageDialog(null, " El algoritmo solo resuelve matrices \n en un rango entre \n 2 y 10 valores");
-        }
-        else if (txtTamanioMatriz.getText().equals("") ) {
-            JOptionPane.showMessageDialog(this, "Favor de introducir un número");
-        }
-        else{
-            n = Integer.parseInt(txtTamanioMatriz.getText());
-            //a = new double[n][n+1];
-            txtTamanioMatriz.setEnabled(false);
-            llenarTabla(n);
-        }
+        btnOK();
     }//GEN-LAST:event_okButtonActionPerformed
 
     private void btAplicarMetodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAplicarMetodoActionPerformed
-        try {
-            
-            int valorInicial = Integer.parseInt((String) tbGauss.getValueAt(0, 0));
-            if (valorInicial == 0) { //si el primer valor esta 0
-                JOptionPane.showMessageDialog(null, " El primer valor debe ser \n Diferente de 0 \n Gracias");
-            } else {
-
-                int fila = tbGauss.getSelectedRow();
-                if (fila == -1) { //Si esta uno seleccionado
-                    JOptionPane.showMessageDialog(this, "Favor de llenar la Matriz");
-                    
-                } else {
-                    boolean verificada = verificarMatriz();
-                    if (verificada) {
-                        a = new double[n][n+1];
-                        llenarMatriz(n);
-                        btAplicarMetodo.setEnabled(false);
-                    }
-                }
-
-            }
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Verificar la Matriz \n Algo anda mal");
-            System.out.println(e);
-        }
-
+        btnAplicar();
     }//GEN-LAST:event_btAplicarMetodoActionPerformed
 
     private void btBorrarMatrizActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBorrarMatrizActionPerformed
@@ -179,6 +162,7 @@ public class InterfazGaussJordan extends javax.swing.JFrame {
         
         txtTamanioMatriz.setEnabled(true);
         btAplicarMetodo.setEnabled(true);
+        okButton.setEnabled(true);
         p = 0;
     }//GEN-LAST:event_btBorrarMatrizActionPerformed
 
@@ -194,6 +178,49 @@ public class InterfazGaussJordan extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtTamanioMatrizKeyTyped
 
+    public void btnAplicar() {
+        try {
+            int valorInicial = Integer.parseInt((String) tbGauss.getValueAt(0, 0));
+            
+            if (valorInicial == 0) { //si el primer valor esta 0
+                JOptionPane.showMessageDialog(null, " El primer valor debe ser \n Diferente de 0 \n Gracias");
+            } else {
+
+                int fila = tbGauss.getSelectedRow();
+                if (fila == -1) { //Si esta uno seleccionado
+                    JOptionPane.showMessageDialog(this, "Favor de llenar la Matriz");
+                    
+                } else {
+                    boolean verificada = verificarMatriz();
+                    if (verificada) {
+                        a = new double[n][n+1];
+                        llenarMatriz(n);
+                        btAplicarMetodo.setEnabled(false);
+                        okButton.setEnabled(false);
+                    }
+                }
+
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Verificar la Matriz \n Algo anda mal");
+            System.out.println(e);
+        }
+    }
+    
+    public void btnOK() {
+        if (Integer.parseInt(txtTamanioMatriz.getText()) > 10 || Integer.parseInt(txtTamanioMatriz.getText()) < 2) {
+            JOptionPane.showMessageDialog(null, " El algoritmo solo resuelve matrices \n en un rango entre \n 2 y 10 valores");
+        }
+        else if (txtTamanioMatriz.getText().equals("") ) {
+            JOptionPane.showMessageDialog(this, "Favor de introducir un número");
+        }
+        else{
+            n = Integer.parseInt(txtTamanioMatriz.getText()); //leer tamaño
+            llenarTabla(n);
+        }
+    }
+    
     public void llenarTabla(int n) {
         DefaultTableModel tabla = new DefaultTableModel();
         
@@ -265,7 +292,9 @@ public class InterfazGaussJordan extends javax.swing.JFrame {
         double divicion = matriz[p][p]; //guardar sobre cuanto se va a dividir
         
         for (int y = 0; y < (var + 1); y++) { //recorrer la fila para ir dividiendo
-            matriz[p][y] = matriz[p][y] / divicion;
+            double resultado = matriz[p][y] / divicion;
+            double r = redondearDecimales(resultado, 2);
+            matriz[p][y] = r;
         }
         txtPasos.append("Pivote: Fila" + p + " / " +divicion + "\n");
         //txtPasos.append("\n");
@@ -278,9 +307,11 @@ public class InterfazGaussJordan extends javax.swing.JFrame {
                 double constante = matriz[x][p]; //guardar constante del valor de la fila que se va a restar
                 
                 for (int z = 0; z < (var + 1); z++) { //recorrer columnas
-                    matriz[x][z] = ((-1 * constante) * matriz[p][z]) + matriz[x][z]; //la matriz se le va a restar tantas veces el pivote por su valor actual
+                    double resultado = ((-1 * constante) * matriz[p][z]) + matriz[x][z]; //la matriz se le va a restar tantas veces el pivote por su valor actual
+                    double r = redondearDecimales(resultado, 2);
+                    matriz[x][z] = r;
                 }
-                txtPasos.append("Ceros: Fila"+ x + -1*constante + " * Fila" + p + "\n");
+                txtPasos.append("Ceros: Fila"+ x + " " + -1*constante + " * Fila" + p + "\n");
             }
         }
     }
@@ -297,6 +328,18 @@ public class InterfazGaussJordan extends javax.swing.JFrame {
             }
         }
         return true;
+    }
+    
+    public double redondearDecimales(double valorInicial, int numeroDecimales) {
+        double parteEntera, resultado;
+        
+        resultado = valorInicial;
+        parteEntera = Math.floor(resultado);
+        resultado=(resultado-parteEntera)*Math.pow(10, numeroDecimales);
+        resultado=Math.round(resultado);
+        resultado=(resultado/Math.pow(10, numeroDecimales))+parteEntera;
+        
+        return resultado;
     }
     
 
@@ -322,6 +365,9 @@ public class InterfazGaussJordan extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAplicarMetodo;
     private javax.swing.JButton btBorrarMatriz;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
