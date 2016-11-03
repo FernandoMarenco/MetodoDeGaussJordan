@@ -22,14 +22,14 @@ public class InterfazGaussJordan extends javax.swing.JFrame {
      */
     public InterfazGaussJordan() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
      * Atributos utilizados en la interfaz
      */
-    int i, j, p = 0, n; // iteradores, apuntadores y tamaño de la matriz
-    double a[][] = new double[10][11]; // arreglo que almacena los datos
-    double e, x, y, z; // incognitas
+    int p = 0, n; // pivote y tamaño de la matriz
+    double a[][] = null; // arreglo que almacena los datos
     char[] letras = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'};
 
     /**
@@ -41,13 +41,20 @@ public class InterfazGaussJordan extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbGauss = new javax.swing.JTable();
         txtTamanioMatriz = new javax.swing.JTextField();
         okButton = new javax.swing.JButton();
         btAplicarMetodo = new javax.swing.JButton();
+        btBorrarMatriz = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtPasos = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Método de Gauss-Jordan");
+
+        jPanel1.setLayout(null);
 
         tbGauss.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -59,102 +66,180 @@ public class InterfazGaussJordan extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tbGauss);
 
+        jPanel1.add(jScrollPane1);
+        jScrollPane1.setBounds(10, 69, 370, 176);
+
+        txtTamanioMatriz.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTamanioMatrizKeyTyped(evt);
+            }
+        });
+        jPanel1.add(txtTamanioMatriz);
+        txtTamanioMatriz.setBounds(100, 20, 146, 20);
+
         okButton.setText("OK");
         okButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 okButtonActionPerformed(evt);
             }
         });
+        jPanel1.add(okButton);
+        okButton.setBounds(354, 40, 47, 23);
 
-        btAplicarMetodo.setText("Boton");
+        btAplicarMetodo.setText("Aplicar");
         btAplicarMetodo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btAplicarMetodoActionPerformed(evt);
             }
         });
+        jPanel1.add(btAplicarMetodo);
+        btAplicarMetodo.setBounds(196, 256, 65, 23);
+
+        btBorrarMatriz.setText("Borrar");
+        btBorrarMatriz.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btBorrarMatrizActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btBorrarMatriz);
+        btBorrarMatriz.setBounds(287, 256, 63, 23);
+
+        txtPasos.setEditable(false);
+        txtPasos.setColumns(20);
+        txtPasos.setLineWrap(true);
+        txtPasos.setRows(5);
+        jScrollPane2.setViewportView(txtPasos);
+
+        jPanel1.add(jScrollPane2);
+        jScrollPane2.setBounds(420, 10, 360, 263);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(54, 54, 54)
-                .addComponent(btAplicarMetodo)
-                .addGap(3, 3, 3))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(248, 248, 248)
-                .addComponent(txtTamanioMatriz, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(okButton)
-                .addContainerGap(207, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 824, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtTamanioMatriz, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(okButton))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 164, Short.MAX_VALUE)
-                        .addComponent(btAplicarMetodo)
-                        .addGap(49, 49, 49))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void okButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
-        n = Integer.parseInt(txtTamanioMatriz.getText());
-        llenarTabla(n);
+        if (Integer.parseInt(txtTamanioMatriz.getText()) > 10 || Integer.parseInt(txtTamanioMatriz.getText()) < 2) {
+            JOptionPane.showMessageDialog(null, " El algoritmo solo resuelve matrices \n en un rango entre \n 2 y 10 valores");
+        }
+        else if (txtTamanioMatriz.getText().equals("") ) {
+            JOptionPane.showMessageDialog(this, "Favor de introducir un número");
+        }
+        else{
+            n = Integer.parseInt(txtTamanioMatriz.getText());
+            //a = new double[n][n+1];
+            txtTamanioMatriz.setEnabled(false);
+            llenarTabla(n);
+        }
     }//GEN-LAST:event_okButtonActionPerformed
 
     private void btAplicarMetodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAplicarMetodoActionPerformed
-        llenarMatriz(n);
+        try {
+            
+            int valorInicial = Integer.parseInt((String) tbGauss.getValueAt(0, 0));
+            if (valorInicial == 0) { //si el primer valor esta 0
+                JOptionPane.showMessageDialog(null, " El primer valor debe ser \n Diferente de 0 \n Gracias");
+            } else {
+
+                int fila = tbGauss.getSelectedRow();
+                if (fila == -1) { //Si esta uno seleccionado
+                    JOptionPane.showMessageDialog(this, "Favor de llenar la Matriz");
+                    
+                } else {
+                    boolean verificada = verificarMatriz();
+                    if (verificada) {
+                        a = new double[n][n+1];
+                        llenarMatriz(n);
+                        btAplicarMetodo.setEnabled(false);
+                    }
+                }
+
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Verificar la Matriz \n Algo anda mal");
+            System.out.println(e);
+        }
+
     }//GEN-LAST:event_btAplicarMetodoActionPerformed
+
+    private void btBorrarMatrizActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBorrarMatrizActionPerformed
+        llenarTabla(n);
+        a = null;
+        txtPasos.setText("");
+        
+        txtTamanioMatriz.setEnabled(true);
+        btAplicarMetodo.setEnabled(true);
+        p = 0;
+    }//GEN-LAST:event_btBorrarMatrizActionPerformed
+
+    private void txtTamanioMatrizKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTamanioMatrizKeyTyped
+        char c = evt.getKeyChar();
+
+        if (Character.isLetter(c)) {
+            getToolkit().beep();
+            
+            evt.consume();
+            JOptionPane.showMessageDialog(null, "Favor de Introducir Caracteres Validos");
+            
+        }
+    }//GEN-LAST:event_txtTamanioMatrizKeyTyped
 
     public void llenarTabla(int n) {
         DefaultTableModel tabla = new DefaultTableModel();
+        
+        //Columnas
         for (int i = 0; i < n; i++) {
             tabla.addColumn(letras[i]);
         }
         tabla.addColumn("Resultado");
-        String datosTabla[] = new String[4];
-
         tbGauss.setModel(tabla);
-
+        
+        //Filas
+        String datosTabla[] = new String[n];
+        
         for (int i = 0; i < n; i++) {
-            //datosTabla[i] = "0"; 
-
             tabla.addRow(datosTabla);
         }
-
     }
 
     public void llenarMatriz(int n) {
+        TableModel tabla = tbGauss.getModel();
+        
+        txtPasos.append("Matriz original\n");
         for (int i = 0; i < n; i++) // ciclo para añadir datos
         {
             for (int j = 0; j <= n; j++) {
-                a[i][j] = Double.parseDouble((String) tbGauss.getModel().getValueAt(i, j));
+                double numero = Double.parseDouble((String) tabla.getValueAt(i, j));
+                
+                a[i][j] = numero;
                 //System.out.println("a: " + a[i][j]);
+                
+                txtPasos.append(String.valueOf(a[i][j])+"\t");
             }
+            txtPasos.append("\n");
         }
         aplicarMetodo();
+        
     }
 
     public void aplicarMetodo() {
         for (int i = 0; i < n; i++) {
+            txtPasos.append("-------------------\n");
             pivote(a, p, n);
             llenarMatrizActualizada(a, n);
             //inserte timer aqui
             
+            txtPasos.append("-------------------\n");
             hacerCeros(a, p, n);
             llenarMatrizActualizada(a, n);
             //inserte timer aqui
@@ -170,27 +255,10 @@ public class InterfazGaussJordan extends javax.swing.JFrame {
         for (int x = 0; x < var; x++) {
             for (int y = 0; y < var+1; y++) {
                 tabla.setValueAt(matriz[x][y], x, y);
+                txtPasos.append(String.valueOf(matriz[x][y])+"\t");
             }
+            txtPasos.append("\n");
         }
-//                    
-//         for (int j = 0; j < n; j++) {
-//             tabla.addColumn(letras[j]);
-//         }
-// 
-//        tabla.addColumn("Resultado");
-//        String datosTabla[] = new String[a.length];
-//        
-//        tbGauss.setModel(tabla);
-//
-//          for(i=0;i<n;i++) // ciclo para añadir datos
-//		{			
-//		    for(j=0;j<=n;j++)
-//		    {
-//                        datosTabla[i] = String.valueOf(a[i][j]);
-//                        
-//                        tabla.addRow(datosTabla);
-//		    }
-//		}
     }
     
     public void pivote(double matriz[][], int p, int var) {
@@ -199,6 +267,8 @@ public class InterfazGaussJordan extends javax.swing.JFrame {
         for (int y = 0; y < (var + 1); y++) { //recorrer la fila para ir dividiendo
             matriz[p][y] = matriz[p][y] / divicion;
         }
+        txtPasos.append("Pivote: Fila" + p + " / " +divicion + "\n");
+        //txtPasos.append("\n");
     }
     
     public void hacerCeros(double matriz[][], int p, int var) {
@@ -210,36 +280,35 @@ public class InterfazGaussJordan extends javax.swing.JFrame {
                 for (int z = 0; z < (var + 1); z++) { //recorrer columnas
                     matriz[x][z] = ((-1 * constante) * matriz[p][z]) + matriz[x][z]; //la matriz se le va a restar tantas veces el pivote por su valor actual
                 }
+                txtPasos.append("Ceros: Fila"+ x + -1*constante + " * Fila" + p + "\n");
             }
         }
     }
+    
+    public boolean verificarMatriz(){
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j <= n; j++) {
+                String valor = (String) tbGauss.getModel().getValueAt(i, j);
+                if (valor.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "La tabla no esta completa");
+                    return false;
+                    
+                }
+            }
+        }
+        return true;
+    }
+    
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(InterfazGaussJordan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(InterfazGaussJordan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(InterfazGaussJordan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(InterfazGaussJordan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            javax.swing.UIManager.setLookAndFeel(javax.swing.UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
         }
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
@@ -252,9 +321,13 @@ public class InterfazGaussJordan extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAplicarMetodo;
+    private javax.swing.JButton btBorrarMatriz;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton okButton;
     private javax.swing.JTable tbGauss;
+    private javax.swing.JTextArea txtPasos;
     private javax.swing.JTextField txtTamanioMatriz;
     // End of variables declaration//GEN-END:variables
 }
